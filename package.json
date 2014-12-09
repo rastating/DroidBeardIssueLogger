@@ -1,0 +1,10 @@
+{
+    "name": "DroidBeardIssueLogger",
+    "version": "1.0.0",
+    "dependencies": {
+        "express": "4.x",
+        "request": "2.x",
+        "body-parser": "1.x",
+        "minimist": "1.x"
+    }
+}
