@@ -18,10 +18,28 @@ app.use(bodyParser.json());
 // ==============================================
 
 var router = express.Router();
+var requestCounts = {};
+var requestLimit =  50;
 
 router.use(function (req, res, next) {
     console.log(req.method, req.url);
     next();
+});
+
+router.use(function (req, res, next) {
+    if (!requestCounts[req.ip]) {
+        requestCounts[req.ip] = 0;
+    }
+
+    requestCounts[req.ip] += 1;
+    
+    if (requestCounts[req.ip] > requestLimit) {
+        console.log(req.ip + ' exceeded request limit.');
+        res.send({ "error": true, "message": "Limit exceeded" });
+    }
+    else {
+        next();
+    }
 });
 
 router.post('/repos/:owner/:repo/issues', function (req, res) {
@@ -62,5 +80,12 @@ router.post('/exception', function (req, res) {
 
 app.use('/', router);
 
+// EXPRESS SERVER & RATE LIMITER
+// ==============================================
+
 app.listen(5050);
 console.log('Started issue logger on port 5050 in ' + (debugging ? 'DEBUG' : 'PRODUCTION') + ' mode.');
+
+setInterval(function () {
+    requestCounts = {};
+}, 60 * 60 * 1000);
