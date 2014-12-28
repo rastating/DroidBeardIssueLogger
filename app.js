@@ -13,6 +13,13 @@ var token       = args.t;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// BLACK LISTED SUBJECTS
+// ==============================================
+
+var blacklist = [
+    /Connection to (.*) refused/,
+    /Unable to resolve host "(.*)": No address associated with hostname/
+];
 
 // ROUTES
 // ==============================================
@@ -47,6 +54,13 @@ router.post('/repos/:owner/:repo/issues', function (req, res) {
 });
 
 router.post('/exception', function (req, res) {
+    for (var i = 0; i < blacklist.length; i++) {
+        if (req.body.exception.match(blacklist[i])) {
+            res.status(400).send({ "error": true, "message": 'Blacklisted exception' });
+            return;
+        }
+    }
+
     var baseUrl = debugging ? 'http://127.0.0.1:5050' : 'https://api.github.com';
     var options = {
         url: baseUrl + '/repos/rastating/droidbeard/issues?access_token=' + token,
