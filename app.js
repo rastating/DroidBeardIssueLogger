@@ -63,13 +63,22 @@ router.post('/exception', function (req, res) {
     }
 
     var baseUrl = debugging ? 'http://127.0.0.1:5050' : 'https://api.github.com';
+
+    var issueBody = "";
+    if (req.body.version) {
+        issueBody = '##Version\n' + req.body.version + '\n##Stack Trace\n```\n' + req.body.stackTrace + '\n```\n##Data\n```' + req.body.data + '```';
+    }
+    else {
+        issueBody = '```\n' + req.body.stackTrace + '\n```';
+    }
+
     var options = {
         url: baseUrl + '/repos/rastating/droidbeard/issues?access_token=' + token,
         headers: { "User-Agent": "DroidBeard Issue Logger" },
         json: true,
         body: {
             "title": "Error Report: " + req.body.exception,
-            "body": '```\n' + req.body.stackTrace + '\n```',
+            "body": issueBody,
             "labels": [
                 "in-app error report",
                 "bug"
