@@ -66,7 +66,11 @@ router.post('/exception', function (req, res) {
 
     var issueBody = "";
     if (req.body.version) {
-        issueBody = '## Version\n' + req.body.version + '\n## Stack Trace\n```\n' + req.body.stackTrace + '\n```\n## Data\n```\n' + req.body.data + '\n```';
+        issueBody = '## Configuration Information\n*Version:*' + req.body.version + 
+                    '\n*HTTPS Enabled:* ' + req.body.https_enabled + 
+                    '\n*Trust All Certificates:*' + req.body.trust_all_certificates + 
+                    '\n## Stack Trace\n```\n' + req.body.stackTrace + 
+                    '\n```\n## Data\n```\n' + req.body.data + '\n```';
     }
     else {
         issueBody = '```\n' + req.body.stackTrace + '\n```';
