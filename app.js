@@ -66,7 +66,7 @@ router.post('/exception', function (req, res) {
 
     var issueBody = "";
     if (req.body.version) {
-        issueBody = '##Version\n' + req.body.version + '\n##Stack Trace\n```\n' + req.body.stackTrace + '\n```\n##Data\n```' + req.body.data + '```';
+        issueBody = '## Version\n' + req.body.version + '\n## Stack Trace\n```\n' + req.body.stackTrace + '\n```\n## Data\n```\n' + req.body.data + '\n```';
     }
     else {
         issueBody = '```\n' + req.body.stackTrace + '\n```';
