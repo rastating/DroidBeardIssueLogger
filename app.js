@@ -93,6 +93,10 @@ router.post('/exception', function (req, res) {
     });
 });
 
+router.get('/ping', function (req, res) {
+    res.send('pong');
+});
+
 app.use('/', router);
 
 // EXPRESS SERVER & RATE LIMITER
