@@ -20,7 +20,9 @@ var blacklist = [
     /Connection to (.*) refused/,
     /Unable to resolve host "(.*)": No address associated with hostname/,
     /Value <!DOCTYPE of type java.lang.String cannot be converted to JSONObject/,
-    /Host name may not be null/
+    /Host name may not be null/,
+    /Not Found/,
+    /Invalid long: "kwargs"/
 ];
 
 // ROUTES
