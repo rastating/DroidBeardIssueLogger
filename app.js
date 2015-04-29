@@ -22,7 +22,9 @@ var blacklist = [
     /Value <!DOCTYPE of type java.lang.String cannot be converted to JSONObject/,
     /Host name may not be null/,
     /Not Found/,
-    /Invalid long: "kwargs"/
+    /Invalid long: "kwargs"/,
+    /recvfrom failed: ECONNRESET/,
+    /recvfrom failed: ETIMEDOUT/
 ];
 
 // ROUTES
